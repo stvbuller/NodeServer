@@ -15,7 +15,7 @@ var handleRequest = function (req, res) {
     case '/Movies':
       display_movies(req, res);
       break;
-    case '/CSS Frameworks':
+    case '/CSS':
       display_css(req, res);
       break;
     default:
@@ -25,31 +25,55 @@ var handleRequest = function (req, res) {
 }
 
 var display_root = function(req, res) {
-  var myHTML = "<html><body>";
-  myHTML += "<h1>Home page!</h1>";
-  myHTML += "<a href='/test'>Test Page</a>";
-  myHTML += "</body></html>";
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.end(myHTML);
+  fs.readFile("home.html", "utf8", function(err, data){
+    if (err){
+      console.log(err);
+    }
+    else{
+      var myHTML = data;
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      res.end(myHTML);
+    }
+  });
 }
 
 var display_food = function(req, res) {
-  //check liri for fsread also check documentation
-  fsread
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.end(myHTML);
+  fs.readFile("food.html", "utf8", function(err, data){
+    if (err){
+      console.log(err);
+    }
+    else{
+      var myHTML = data;
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      res.end(myHTML);
+    }
+  });
 }
 
 var display_movies = function(req, res) {
-  var myHTML = 
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.end(myHTML);
+  fs.readFile("movies.html", "utf8", function(err, data){
+    if (err){
+      console.log(err);
+    }
+    else{
+      var myHTML = data;
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      res.end(myHTML);
+    }
+  });
 }
  
 var display_css = function(req, res) {
-  var myHTML = 
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.end(myHTML);
+  fs.readFile("frameworks.html", "utf8", function(err, data){
+    if (err){
+      console.log(err);
+    }
+    else{
+      var myHTML = data;
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      res.end(myHTML);
+    }
+  });
 }
 
 var display_404 = function(req, res) {
