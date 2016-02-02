@@ -1,4 +1,5 @@
 var http = require('http'), url = require('url');
+var fs = require('fs');
 
 var PORT = 8080;
 
@@ -33,7 +34,8 @@ var display_root = function(req, res) {
 }
 
 var display_food = function(req, res) {
-  var myHTML =
+  //check liri for fsread also check documentation
+  fsread
   res.writeHead(200, {'Content-Type': 'text/html'});
   res.end(myHTML);
 }
