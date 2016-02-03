@@ -4,6 +4,9 @@ var fs = require('fs');
 
 var PORT = 8090;
 
+//Create two routes, one that has a form that POSTS data
+//The other that accepts POSTed data and displays it
+
 var server = http.createServer(function(req, res) {
   var method = req.method.toLowerCase();
   var requestData = '';
