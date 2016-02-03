@@ -1,48 +1,39 @@
-var http = require('http'), url = require('url'); 
+var http = require('http');
+var url = require('url');
 var fs = require('fs');
 
+var PORT = 8090;
 
-var PORTONE = 7000;
-// var PORTTWO = 7500;
+var server = http.createServer(function(req, res) {
+  var method = req.method.toLowerCase();
+  var requestData = '';
 
-
-var handleRequestOne = function (req, res) {
   var url_parts = url.parse(req.url);
+
   switch (url_parts.pathname) {
     case '/':
-      display_root(req, res);
+      fs.readFile('form.html', 'utf-8', function(err, result) {
+        res.end(result);
+      });
       break;
-    case '/form':
-      display_food(req, res);
-      break;
-    default:
-      display_404(req, res);
+
+    case '/signup':
+      console.log('We got here!');
+      req.on("data", function(msg) {
+        console.log("the msg is ", msg);
+        requestData += msg;
+      });
+
+      req.on("end", function() {
+        console.log("Got the end");
+        res.writeHead(200, {'Content-Type': 'text.html'});
+        res.end(requestData);
+      });
       break;
   }
-}
-
-var display_root = function(req, res) {
-  //check liri for fsread also check documentation
-  fs.readFile("./form.html", "utf8", function(err, data){
-    if (err){
-      console.log(err);
-    }
-    else{
-      var myHTML = data;
-      res.writeHead(200, {'Content-Type': 'text/html'});
-      res.end(myHTML);
-    }
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.end(myHTML);
-}
-
-var serverOne = http.createServer(handleRequestOne);
-
-serverOne.listen(PORTONE, function() {
-  console.log("Server is listening at http://localhost:%s", PORTONE);
 });
-// var serverTwo = http.createServer(handleRequestTwo);
 
-// serverTwo.listen(PORTTWO, function() {
-//   console.log("Server is listening at http://localhost:%s", PORTTWO);
-// });
+server.listen(PORT, function() {
+  console.log("Server listening on http://localhost:%s", PORT);
+});
+
